@@ -1,4 +1,5 @@
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phone_authentication_project/app/bloc/app_bloc.dart';
@@ -37,7 +38,12 @@ class AppView extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routerConfig: _appRouter.config(),
+      routerDelegate: AutoRouterDelegate(
+        _appRouter,
+        navigatorObservers: () => [AutoRouteObserver()],
+        initialRoutes: [const LoginRoute()],
+      ),
+      routeInformationParser: _appRouter.defaultRouteParser(),
     );
   }
 }

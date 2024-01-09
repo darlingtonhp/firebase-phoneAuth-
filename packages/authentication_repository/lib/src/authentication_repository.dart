@@ -138,6 +138,10 @@ class AuthenticationRepository {
 
 extension on firebase_auth.User {
   User get toUser {
-    return User(userId: uid, phoneNumber: phoneNumber, userName: displayName);
+    return User(
+      userId: uid,
+      phoneNumber: phoneNumber,
+      userName: displayName ?? '',
+    );
   }
 }
