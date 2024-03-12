@@ -113,21 +113,26 @@ class AuthenticationRepository {
     );
   }
 
-  Future<void> loginWithSmsVerificationCode(
+  Future<bool> loginWithSmsVerificationCode(
       {required String smsVerificationcode,
       required String verificationCode}) async {
     try {
-      final firebase_auth.PhoneAuthCredential credential =
+      // final firebase_auth.PhoneAuthCredential credential =
+      //     firebase_auth.PhoneAuthProvider.credential(
+      //         verificationId: verificationCode, smsCode: smsVerificationcode);
+      // await _firebaseAuth.signInWithCredential(credential).then((value) {
+      //   final user = firebase_auth.FirebaseAuth.instance.currentUser;
+      //   if (user != null) {
+      //     return user;
+      //   } else {
+      //     return null;
+      //   }
+      // });
+      var credentials = await _firebaseAuth.signInWithCredential(
           firebase_auth.PhoneAuthProvider.credential(
-              verificationId: verificationCode, smsCode: smsVerificationcode);
-      await _firebaseAuth.signInWithCredential(credential).then((value) {
-        final user = firebase_auth.FirebaseAuth.instance.currentUser;
-        if (user != null) {
-          return user;
-        } else {
-          return null;
-        }
-      });
+              verificationId: smsVerificationcode,
+              smsCode: smsVerificationcode));
+      return credentials.user != null ? true : false;
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignInWithCredentialFailure.fromCode(e.code);
     } catch (_) {

@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDFhYsY3jo1_fPtjvId9GIqz9gk35jLm40',
-    appId: '1:221808874141:android:d5e97ac7b05f18af9bfa74',
-    messagingSenderId: '221808874141',
-    projectId: 'phoneauth-fd54a',
-    storageBucket: 'phoneauth-fd54a.appspot.com',
+    apiKey: 'AIzaSyBpsBNTDthFltFvLE3NzCDgkiu9GMSraOU',
+    appId: '1:117301239531:android:21f05d75ab0241d9e028ae',
+    messagingSenderId: '117301239531',
+    projectId: 'me-phone-auth',
+    storageBucket: 'me-phone-auth.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBrxKM9FkK9UYNuS7QtFHddvFO2xOmaDVw',
-    appId: '1:221808874141:ios:adc5b046c75d01189bfa74',
-    messagingSenderId: '221808874141',
-    projectId: 'phoneauth-fd54a',
-    storageBucket: 'phoneauth-fd54a.appspot.com',
+    apiKey: 'AIzaSyC0fxHiQ1Sa1PpQKaSYH96V5QDTo88zAxg',
+    appId: '1:117301239531:ios:9ced235367caa7a4e028ae',
+    messagingSenderId: '117301239531',
+    projectId: 'me-phone-auth',
+    storageBucket: 'me-phone-auth.appspot.com',
     iosBundleId: 'com.example.phoneAuthenticationProject',
   );
 }
