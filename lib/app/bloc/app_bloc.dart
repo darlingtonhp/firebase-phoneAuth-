@@ -14,12 +14,20 @@ class AppBloc extends Bloc<AppEvent, AppState> {
               ? AppState.authenticated(authenticationRepository.currentUser)
               : const AppState.unauthenticated(),
         ) {
-    on<AppUserChanged>((event, emit) => event.user.isNotEmpty
-        ? AppState.authenticated(event.user)
-        : const AppState.unauthenticated());
-    on<AppLogoutRequested>(
-      (event, emit) => unawaited(_authenticationRepository.logOut()),
-    );
+    on<AppUserChanged>((event, emit) {
+      emit(
+        event.user.isNotEmpty
+            ? AppState.authenticated(event.user)
+            : const AppState.unauthenticated(),
+      );
+    });
+    on<AppLogoutRequested>((event, emit) async {
+      try {
+        await _authenticationRepository.logOut();
+      } on UserNotLoggedInException {
+        emit(const AppState.unauthenticated());
+      }
+    });
     _userSubscription = _authenticationRepository.user.listen(
       (user) => add(AppUserChanged(user)),
     );
@@ -29,8 +37,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   late final StreamSubscription<User> _userSubscription;
 
   @override
-  Future<void> close() {
-    _userSubscription.cancel();
+  Future<void> close() async {
+    await _userSubscription.cancel();
     return super.close();
   }
 }

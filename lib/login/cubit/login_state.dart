@@ -9,22 +9,32 @@ sealed class LoginState extends Equatable {
 
 final class LoginInitial extends LoginState {}
 
-class LoginSmsCodeSent extends LoginState {
-  final String verificationId;
+class LoginLoading extends LoginState {
+  const LoginLoading({this.message});
 
-  const LoginSmsCodeSent(this.verificationId);
+  final String? message;
+
+  @override
+  List<Object> get props => [if (message != null) message!];
+}
+
+class LoginCodeSent extends LoginState {
+  final String verificationId;
+  final int? resendToken;
+
+  const LoginCodeSent(this.verificationId, [this.resendToken]);
 
   @override
   List<Object> get props => [verificationId];
 }
 
 class LoginFailure extends LoginState {
-  final String? errorMessage;
+  final String errorMessage;
 
-  const LoginFailure({this.errorMessage});
+  const LoginFailure({required this.errorMessage});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [errorMessage];
 }
 
 class LoginSuccess extends LoginState {}

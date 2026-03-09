@@ -50,11 +50,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBpsBNTDthFltFvLE3NzCDgkiu9GMSraOU',
-    appId: '1:117301239531:android:21f05d75ab0241d9e028ae',
-    messagingSenderId: '117301239531',
-    projectId: 'me-phone-auth',
-    storageBucket: 'me-phone-auth.appspot.com',
+    apiKey: 'AIzaSyAzdlxe5J-NRPuaiqFvrH9CNbiAPUbH6Fk',
+    appId: '1:662509124027:android:df088ef3670fd9d904ac9e',
+    messagingSenderId: '662509124027',
+    projectId: 'me-phone-auth-5f8e7',
+    storageBucket: 'me-phone-auth-5f8e7.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

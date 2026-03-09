@@ -7,14 +7,54 @@ part 'routes.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends _$AppRouter {
+  AppRouter(this._appBloc);
+
+  final AppBloc _appBloc;
+
   @override
-  List<AutoRoute> get routes {
-    AppStatus status = AppStatus.unauthenticated;
-    switch (status) {
-      case AppStatus.authenticated:
-        return [AutoRoute(page: HomeRoute.page)];
-      case AppStatus.unauthenticated:
-        return [AutoRoute(page: LoginRoute.page)];
+  List<AutoRoute> get routes => [
+        AutoRoute(
+          page: LoginRoute.page,
+          path: '/login',
+          initial: true,
+          guards: [AuthRouteGuard(_appBloc)],
+        ),
+        AutoRoute(
+          page: HomeRoute.page,
+          path: '/home',
+          guards: [LoginRequiredGuard(_appBloc)],
+        ),
+      ];
+}
+
+class LoginRequiredGuard extends AutoRouteGuard {
+  LoginRequiredGuard(this._appBloc);
+
+  final AppBloc _appBloc;
+
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
+    if (_appBloc.state.status == AppStatus.authenticated) {
+      resolver.next();
+      return;
     }
+
+    resolver.redirect(const LoginRoute());
+  }
+}
+
+class AuthRouteGuard extends AutoRouteGuard {
+  AuthRouteGuard(this._appBloc);
+
+  final AppBloc _appBloc;
+
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
+    if (_appBloc.state.status == AppStatus.authenticated) {
+      resolver.redirect(const HomeRoute());
+      return;
+    }
+
+    resolver.next();
   }
 }

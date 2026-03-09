@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "117301239531",
-    "project_id": "me-phone-auth",
-    "storage_bucket": "me-phone-auth.appspot.com"
+    "project_number": "662509124027",
+    "project_id": "me-phone-auth-5f8e7",
+    "storage_bucket": "me-phone-auth-5f8e7.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:117301239531:android:21f05d75ab0241d9e028ae",
+        "mobilesdk_app_id": "1:662509124027:android:df088ef3670fd9d904ac9e",
         "android_client_info": {
           "package_name": "com.example.phone_authentication_project"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBpsBNTDthFltFvLE3NzCDgkiu9GMSraOU"
+          "current_key": "AIzaSyAzdlxe5J-NRPuaiqFvrH9CNbiAPUbH6Fk"
         }
       ],
       "services": {

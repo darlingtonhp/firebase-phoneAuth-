@@ -27,23 +27,47 @@ class App extends StatelessWidget {
   }
 }
 
-class AppView extends StatelessWidget {
-  AppView({super.key});
-  final _appRouter = AppRouter();
+class AppView extends StatefulWidget {
+  const AppView({super.key});
+
+  @override
+  State<AppView> createState() => _AppViewState();
+}
+
+class _AppViewState extends State<AppView> {
+  late final AppRouter _appRouter;
+
+  @override
+  void initState() {
+    super.initState();
+    _appRouter = AppRouter(context.read<AppBloc>());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return BlocListener<AppBloc, AppState>(
+      listenWhen: (previous, current) => previous.status != current.status,
+      listener: (context, currentState) {
+        if (currentState.status == AppStatus.authenticated) {
+          _appRouter.replaceAll([const HomeRoute()]);
+        } else {
+          _appRouter.replaceAll([const LoginRoute()]);
+        }
+      },
+      child: MaterialApp.router(
+        title: 'Phone Authentication',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF0B7A75),
+            brightness: Brightness.light,
+          ),
+          scaffoldBackgroundColor: const Color(0xFFF5F8FC),
+          useMaterial3: true,
+        ),
+        routerConfig: _appRouter.config(
+          navigatorObservers: () => [AutoRouteObserver()],
+        ),
       ),
-      routerDelegate: AutoRouterDelegate(
-        _appRouter,
-        navigatorObservers: () => [AutoRouteObserver()],
-        initialRoutes: [const LoginRoute()],
-      ),
-      routeInformationParser: _appRouter.defaultRouteParser(),
     );
   }
 }
